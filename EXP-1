@@ -1,0 +1,99 @@
+create database employees;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use employees;
+Database changed
+reate table employees(empid int(30),name varchar(20),city varchar(20),location varchar(20));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> desc employee;
+ERROR 1146 (42S02): Table 'employees.employee' doesn't exist
+mysql> desc employees;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| empid    | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc employees(Bname varchar(20),Bid int(10),blocation varchar(30));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(Bname varchar(20),Bid int(10),blocation varchar(30))' at line 1
+mysql> ^C
+mysql> create table BRANCH (Bname varchar(20),Bid int(10),blocation varchar(30));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> desc BRANCH
+    ->
+    -> desc BRANCH;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc BRANCH' at line 3
+mysql> desc BRANCH;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Bname     | varchar(20) | YES  |     | NULL    |       |
+| Bid       | int         | YES  |     | NULL    |       |
+| blocation | varchar(30) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employees add primary key(empid);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employees;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| empid    | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table BRANCH foreign key(Bid) references employees(empid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key(Bid) references employees(empid)' at line 1
+mysql> alter table studepartment add foreign key(Bid) references employees(empid);
+ERROR 1146 (42S02): Table 'employees.studepartment' doesn't exist
+mysql> alter table studepartment add foreign key(Rollno) references student(Rollno);^C
+mysql>  alter table BRANCH add foreign key(Bid) references employees(empid);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc BRANCH;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Bname     | varchar(20) | YES  |     | NULL    |       |
+| Bid       | int         | YES  | MUL | NULL    |       |
+| blocation | varchar(30) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employees add unique(empid);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employees;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| empid    | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| location | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc BRANCH;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Bname     | varchar(20) | YES  |     | NULL    |       |
+| Bid       | int         | YES  | MUL | NULL    |       |
+| blocation | varchar(30) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
